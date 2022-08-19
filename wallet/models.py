@@ -93,7 +93,7 @@ class Card(models.Model):
 
 class Notification(models.Model):
     recipient = models.ForeignKey('Customer',on_delete=models.CASCADE,related_name='Customer_notification')     
-    message = models.TextField(max_length=30)
+    message = models.TextField(max_length=500)
     date_time = models.DateTimeField(null = True,blank= True)
 
 class Loan(models.Model):
