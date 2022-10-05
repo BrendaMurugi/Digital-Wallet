@@ -2,7 +2,7 @@ from django.contrib import admin
 from .models import Account, Card, Currency, Customer, Loan, Notification, Receipt, Reward, ThirdParty, Transaction, Wallet
 
 class CustomerAdmin(admin.ModelAdmin):
-    list_display = ('first_name', 'last_name', 'age', 'email')
+    list_display = ('first_name', 'last_name', 'email')
     search_fields = ('first_name', 'last_name')
 
 class WalletAdmin(admin.ModelAdmin):
@@ -26,8 +26,8 @@ class ReceiptAdmin(admin.ModelAdmin):
     search_fields = ('date_issued', 'total_amount')
 
 class TransactionAdmin(admin.ModelAdmin):
-    list_display = ('transaction_amount','origin_account','destination_account')
-    search_fields = ('transaction_amount','origin_account','destination_account')
+    list_display = ('amount','origin_account','destination_account')
+    search_fields = ('amount','origin_account','destination_account')
 
 class CardAdmin(admin.ModelAdmin):
     list_display = ('card_name', 'card_number')

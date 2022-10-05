@@ -1,0 +1,7 @@
+<h1>{{transaction.amount}}</h1>
+<h2>{{transaction.origin_account}}</h2>
+<h2>{{transaction.destination_account}}</h2>
+<h3>{{transaction.transaction_type}}</h3>
+<h3>{{transaction.transaction_cost}}</h3>
+<h3>{{transaction.receipt}}</h3>
+<a href="{% url 'edit_transaction' id=transaction.id %}"> Edit </a>
