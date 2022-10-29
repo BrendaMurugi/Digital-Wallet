@@ -80,6 +80,80 @@ class Account(models.Model):
     def __str__(self):
         return self.account_name
 
+    def deposit(self, amount):
+       if amount <= 0:
+           message =  "Invalid amount"
+           status = 403
+       else:
+           self.account_balance += amount
+           self.save()
+           message = f"You have deposited {amount}, your new balance is {self.account_balance}"
+           status = 200
+       return message, status
+
+    def transfer(self, destination, amount):
+       if amount <= 0:
+           message =  "Invalid amount"
+           status = 403
+      
+       elif amount < self.account_balance:
+           message =  "Insufficient balance"
+           status = 403
+      
+       else:
+           self.account_balance -= amount
+           self.save()
+           destination.deposit(amount)
+          
+           message = f"You have transfered {amount}, your new balance is {self.account_balance}"
+           status = 200
+       return message, status
+
+    def withdraw(self, amount):
+           if amount <= 0:
+              message =  "Invalid amount"
+              status = 403
+           else:
+              self.balance -= amount
+              self.save()
+              message = f"You have withdrawn {amount}, your new balance is {self.balance}"
+              status = 200
+           return message, status  
+
+    def request_loan(self,amount):
+            if amount <= 0:
+               message =  "Invalid amount"
+               status = 403
+            else:
+               self.loan_balance += amount
+               self.balance += amount
+               self.save()            
+               message = f"You have requested for a loan of  Ksh.{amount}, your new balance is {self.balance}"
+               status = 200
+            return message, status
+
+    def repay_loan(self,amount):
+            if amount <= 0:
+                message =  "Invalid amount"
+                status = 403
+            else:
+                self.balance -= self.loan_balance
+                self.save()            
+                message = f"Your  loan of  Ksh.{self.loan_balance} has been repayed, your new balance is {self.balance}"
+                status = 200
+            return message, status
+
+    def buy_airtime(self,amount):
+        if amount< 0:
+            message="Invalid amount"
+            status=403
+        else:
+            self.balance += amount
+            self.save()
+            message=f"You have bought airtime for Ksh.{amount}, your new balance is {self.balance}"
+            status=200
+        return message, status
+
 CARD_TYPE_CHOICES = (('Credit card','Credit card'),('Debit card','Debit card'),('Prepaid card','Prepaid card'))
 class Card(models.Model):
     card_name = models.CharField(max_length=20,null= True)
